@@ -5,7 +5,8 @@ exports.handleMouseCommand = (mouseCord) => {
   angleH = parseInt(mouseCord.x)
   angleV = parseInt(mouseCord.y)
 
-  return handleServo(angleH, angleV)
+  const angles = handleServo(angleH, angleV)
+  return angles
 }
 
 exports.handleVoiceCommand = (phrase) => {
@@ -19,7 +20,8 @@ exports.handleVoiceCommand = (phrase) => {
   if (phrase.indexOf('up') >= 0) angleV += degree
   if (phrase.indexOf('down') >= 0) angleV -= degree
 
-  return handleServo(angleH, angleV)
+  const angles = handleServo(angleH, angleV)
+  return angles
 }
 
 exports.handleKeyPressCommand = (key) => {
@@ -30,7 +32,9 @@ exports.handleKeyPressCommand = (key) => {
   if (key.name === 'up') angleV += 5
   if (key.name === 'down') angleV -= 5
 
-  return handleServo(angleH, angleV)
+  const angles = handleServo(angleH, angleV)
+  console.log(angles)
+  return angles
 }
 
 const handleServo = (angleH, angleV) => {
