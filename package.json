@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "johnny-five": "^2.0.0",
     "keypress": "^0.2.1",
-    "socket.io": "^2.3.0"
+    "serialport": "^9.0.4",
+    "socket.io": "^2.4.1"
   }
 }

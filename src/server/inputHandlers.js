@@ -1,14 +1,3 @@
-const five = require('johnny-five')
-
-var servoHorizontal = new five.Servo.Continuous(10)
-var servoVertical = new five.Servo.Continuous(11)
-
-servoHorizontal.to(0)
-servoVertical.to(0)
-
-process.stdin.resume()
-process.stdin.setEncoding('utf8')
-
 let angleH = 0
 let angleV = 0
 
@@ -16,7 +5,7 @@ exports.handleMouseCommand = (mouseCord) => {
   angleH = parseInt(mouseCord.x)
   angleV = parseInt(mouseCord.y)
 
-  return handleServo(servoHorizontal, servoVertical, angleH, angleV)
+  return handleServo(angleH, angleV)
 }
 
 exports.handleVoiceCommand = (phrase) => {
@@ -30,7 +19,7 @@ exports.handleVoiceCommand = (phrase) => {
   if (phrase.indexOf('up') >= 0) angleV += degree
   if (phrase.indexOf('down') >= 0) angleV -= degree
 
-  handleServo(servoHorizontal, servoVertical, angleH, angleV)
+  return handleServo(angleH, angleV)
 }
 
 exports.handleKeyPressCommand = (key) => {
@@ -41,18 +30,14 @@ exports.handleKeyPressCommand = (key) => {
   if (key.name === 'up') angleV += 5
   if (key.name === 'down') angleV -= 5
 
-  handleServo(servoHorizontal, servoVertical, angleH, angleV)
+  return handleServo(angleH, angleV)
 }
 
-const handleServo = (servoHorizontal, servoVertical) => {
+const handleServo = (angleH, angleV) => {
   if (angleH > 160) angleH = 160
   if (angleV > 160) angleV = 160
   if (angleH < 0) angleH = 0
   if (angleV < 0) angleV = 0
 
-  servoHorizontal.to(angleH)
-  servoVertical.to(angleV)
-
-  console.log('Horizontal: ' + angleH)
-  console.log('Vertical: ' + angleV)
+  return { angleH, angleV }
 }

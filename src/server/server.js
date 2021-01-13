@@ -11,24 +11,41 @@ const {
 
 keypress(process.stdin)
 
-var board = new five.Board({
-  port: 'Com3'
+const board = new five.Board({
+  port: 'COM3'
 })
 
+process.stdin.resume()
+process.stdin.setEncoding('utf8')
+
 board.on('ready', () => {
+  console.log('board ready')
+
+  const servoHorizontal = new five.Servo.Continuous(10)
+  const servoVertical = new five.Servo.Continuous(11)
+
+  servoHorizontal.to(0)
+  servoVertical.to(0)
+
   io.on('connection', (socket) => {
     console.log('connection')
 
     socket.on('/mouseCommand', (mouseCord) => {
-      handleMouseCommand(mouseCord)
+      const { angleH, angleV } = handleMouseCommand(mouseCord)
+      servoHorizontal.to(angleH)
+      servoVertical.to(angleV)
     })
 
     socket.on('/voiceCommand', (phrase) => {
-      handleVoiceCommand(phrase)
+      const { angleH, angleV } = handleVoiceCommand(phrase)
+      servoHorizontal.to(angleH)
+      servoVertical.to(angleV)
     })
   })
 
   process.stdin.on('keypress', (key) => {
-    handleKeyPressCommand(key)
+    const { angleH, angleV } = handleKeyPressCommand(key)
+    servoHorizontal.to(angleH)
+    servoVertical.to(angleV)
   })
 })
