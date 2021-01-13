@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
+
+  <link rel="stylesheet" href="./index.css">
+
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="voiceRecognition.js" type="module"></script>
+  <script defer src="mouseRecognition.js" type="module"></script>
+</head>
+
+<body>
+  <div id="mouse-container" style="margin: 0 auto; border: 1px solid black; width: 55%;">
+    <div id="grid-container1" style="
+          margin: 10px;
+          display: grid;
+          flex-direction: row;
+          align-items:initial;
+          justify-content: space-around;
+        ">
+      <h1 id="cords">(0,0)</h1>
+      <canvas style="border: 1px solid #000000;" id="canvas" width="800" height="800"></canvas>
+    </div>
+
+    <div id="flex-container2" style="
+          margin: 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        ">
+      <button id="talk">Talk</button>
+      <h3 id="content"></h3>
+    </div>
+  </div>
+</body>
+
+</html>
